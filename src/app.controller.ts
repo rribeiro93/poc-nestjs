@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -20,4 +20,18 @@ export class AppController {
     return `param: ${id}`
   }
 
+  @Post('aporte')
+  async insertDocument(@Body() body: { tipo: string, valor: number, data: string }) {
+    return await this.appService.insertDocument(body);
+  }
+
+  @Get('aportes')
+  async findDocuments() {
+    return await this.appService.findAllDocuments();
+  }
+
+  @Delete('aporte')
+  async removeDocument(@Body() body: { id: string }) {
+    return await this.appService.removeDocument(body.id);
+  }
 }

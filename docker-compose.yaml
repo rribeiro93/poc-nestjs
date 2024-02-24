@@ -11,18 +11,30 @@ services:
     networks:
       - app-network
 
-#   mongodb:
-#     image: mongo:latest
-#     volumes:
-#       - mongodb-data:/data/db
-#     environment:
-#       - MONGO_INITDB_ROOT_USERNAME=mongoadmin
-#       - MONGO_INITDB_ROOT_PASSWORD=secret
-#     networks:
-#       - app-network
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    volumes:
+      - mongodb-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+      - MONGO_INITDB_DATABASE=investimentos
+      # - MONGO_URL=mongodb://mongodb:27017/mydb
+      # - MONGO_USERNAME=mongoadmin
+      # - MONGO_PASSWORD=secret
+    ports:
+      - "27017:27017"
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+    networks:
+      - app-network
 
-# volumes:
-#   mongodb-data:
+volumes:
+  mongodb-data:
 
 networks:
   app-network:
